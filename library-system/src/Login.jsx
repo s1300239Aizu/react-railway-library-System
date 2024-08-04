@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useCookies } from "react-cookie";
@@ -16,6 +16,12 @@ const validationSchema = Yup.object({
 export const Login = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["token"]);
+
+  useEffect(() => {
+    if (cookies.token) {
+      navigate("/reviews");
+    }
+  }, [cookies, navigate]);
 
   const formik = useFormik({
     initialValues: {
